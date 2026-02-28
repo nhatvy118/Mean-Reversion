@@ -1,0 +1,37 @@
+{
+    "strategy": {
+        "name": "BB SMA Reversion Strategy",
+        "description": "Mean Reversion strategy using Bollinger Bands and SMA20 for VN30 Futures"
+    },
+    "parameters": {
+        "bb_window": 20,
+        "bb_std": 2.0,
+        "sma_window": 20,
+        "default_timeframe": "15min",
+        "trading_start": "09:15",
+        "trading_end": "14:30",
+        "market_close_time": "14:45"
+    },
+    "risk_management": {
+        "max_positions_per_day": 1,
+        "max_daily_loss": 2.0,
+        "max_drawdown": 0.05,
+        "stop_loss_points": 2
+    },
+    "optimization": {
+        "timeframes": ["5min", "15min", "30min", "1h"],
+        "parameter_ranges": {
+            "bb_window": {"min": 10, "max": 50, "step": 1},
+            "bb_std": {"min": 1.5, "max": 3.0, "step": 0.1},
+            "sma_window": {"min": 10, "max": 50, "step": 1}
+        },
+        "objective": "sharpe_ratio"
+    },
+    "backtest": {
+        "initial_capital": 100000,
+        "commission": 0.001,
+        "slippage": 0.0005,
+        "risk_free_rate": 0.03
+    },
+    "save_dir": "runs/bb_sma_reversion"
+}

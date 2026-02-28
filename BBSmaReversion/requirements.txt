@@ -1,0 +1,12 @@
+matplotlib==3.8.3
+mplfinance==0.12.10b0
+numpy==1.26.4
+optuna==4.2.1
+pandas==2.2.3
+psycopg==3.2.5
+psycopg-binary==3.2.5
+seaborn==0.13.2
+SQLAlchemy==2.0.40
+alembic==1.15.2
+PyYAML==6.0.2
+tqdm==4.67.1
