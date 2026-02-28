@@ -153,7 +153,7 @@ def main():
         bb_window=bb_window,
         bb_std=bb_std,
         timeframe=timeframe,
-        use_dummy_data=True  # Set to False when database is available
+        use_dummy_data=False  # Set to True if database is not available
     )
 
     # Print results

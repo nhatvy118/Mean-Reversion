@@ -1,0 +1,7 @@
+{
+    "host": "api.algotrade.vn",
+    "port": 5432,
+    "database": "algotradeDB",
+    "user": "cs408_2026",
+    "password": "your_password_here"
+}
