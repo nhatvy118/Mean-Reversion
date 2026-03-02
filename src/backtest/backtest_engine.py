@@ -12,10 +12,12 @@ class BacktestEngine:
     - Time-Based Exit: No overnight positions (close at ATC session)
     """
 
-    def __init__(self, initial_balance=100000, commission=0.001, stop_loss_points=2):
+    def __init__(self, initial_balance=100000, commission=0.001, stop_loss_points=2,
+                 max_positions_per_day=5):
         self.initial_balance = float(initial_balance)
         self.commission = float(commission)
         self.stop_loss_points = stop_loss_points
+        self.max_positions_per_day = max_positions_per_day
 
     def run_backtest(self, signals_df):
         """
@@ -76,7 +78,7 @@ class BacktestEngine:
             if current_position == 0:
                 # Only enter long positions (Buy)
                 # Check if within trading hours (before 14:30)
-                if row['buy_signal'] == 1 and daily_positions < 1 and row_time < time(14, 30):
+                if row['buy_signal'] == 1 and daily_positions < self.max_positions_per_day and row_time < time(14, 30):
                     current_position = 1  # Long position
                     entry_price = float(row['close'])
                     entry_time = row['datetime']

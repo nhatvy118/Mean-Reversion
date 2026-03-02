@@ -39,15 +39,13 @@ class BacktestVisualizer:
         plot_df = df.set_index('datetime')
         plot_df.index = pd.DatetimeIndex(plot_df.index)
 
-        # Create signals
-        buy_signals = df[df['buy_signal'] == 1].copy()
-        sell_signals = df[df['sell_signal'] == 1].copy()
+        # Create signals (only buy_signal is used)
+        buy_signals = df[df['buy_signal'] == 1].copy() if 'buy_signal' in df.columns else None
 
-        # Create panels
-        fig, axes = plt.subplots(2, 1, figsize=(15, 10), gridspec_kw={'height_ratios': [3, 1]})
+        # Create single panel for price chart
+        fig, ax1 = plt.subplots(figsize=(15, 8))
 
         # Price chart
-        ax1 = axes[0]
         ax1.plot(plot_df.index, plot_df['sma'], label='SMA20', color='orange', linewidth=1)
         ax1.plot(plot_df.index, plot_df['upper_band'], label='Upper BB', color='red', linestyle='--', alpha=0.5)
         ax1.plot(plot_df.index, plot_df['lower_band'], label='Lower BB', color='green', linestyle='--', alpha=0.5)
@@ -67,16 +65,6 @@ class BacktestVisualizer:
         ax1.set_title(title)
         ax1.legend(loc='upper left')
         ax1.grid(True, alpha=0.3)
-
-        # Position chart
-        ax2 = axes[1]
-        ax2.fill_between(plot_df.index, 0, plot_df['position'], alpha=0.5, color='blue', label='Position')
-        ax2.set_ylabel('Position')
-        ax2.set_xlabel('Date')
-        ax2.set_ylim(-0.5, 1.5)
-        ax2.set_yticks([0, 1])
-        ax2.set_yticklabels(['No Position', 'Long'])
-        ax2.grid(True, alpha=0.3)
 
         plt.tight_layout()
 

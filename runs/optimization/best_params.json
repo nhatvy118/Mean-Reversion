@@ -1,0 +1,10 @@
+{
+  "bb_window": 25,
+  "bb_std": 1.8,
+  "timeframe": "15min",
+  "total_trades": 32,
+  "sharpe_ratio": -16.428791215860766,
+  "total_return": 0.0008910940646592985,
+  "win_rate": 0.25,
+  "max_drawdown": -0.00014008069982216642
+}

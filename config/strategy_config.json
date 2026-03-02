@@ -7,13 +7,13 @@
         "bb_window": 20,
         "bb_std": 2.0,
         "sma_window": 20,
-        "default_timeframe": "15min",
+        "default_timeframe": "5min",
         "trading_start": "09:15",
         "trading_end": "14:30",
         "market_close_time": "14:45"
     },
     "risk_management": {
-        "max_positions_per_day": 1,
+        "max_positions_per_day": 20,
         "max_daily_loss": 2.0,
         "max_drawdown": 0.05,
         "stop_loss_points": 2
