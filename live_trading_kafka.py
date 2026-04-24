@@ -10,16 +10,16 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from indicators.bollinger_bands import BollingerBands
 
 from paperbroker.client import PaperBrokerClient
-from paperbroker.market_data import RedisMarketDataClient
+from paperbroker.market_data import KafkaMarketDataClient
 
 # ── Config ────────────────────────────────────────────────────────────────────
-REDIS_SYMBOL  = "HNXDS:VN30F2605"   # May 2026 near-month contract
+KAFKA_SYMBOL  = "HNXDS:VN30F2605"   # May 2026 near-month contract
 FIX_SYMBOL    = "VN30F2605"          # no exchange prefix for FIX orders
 BB_WINDOW     = 20
 BB_STD        = 1.8
 TF_MINUTES    = 15
 STOP_LOSS_PTS = 2.0
-MAX_TRADES    = 30                   # stop after 30 total trades
+MAX_TRADES    = 30
 TRADING_START = time(9, 15)
 ENTRY_CUTOFF  = time(14, 0)
 FORCE_CLOSE   = time(14, 30)
@@ -30,7 +30,7 @@ _fix_ready = ThreadEvent()
 # ── State ─────────────────────────────────────────────────────────────────────
 candles        = []
 current_candle = None
-position       = None   # None or dict with buy/sell order IDs and entry_price
+position       = None
 trades_done    = 0
 
 # ── FIX Client ────────────────────────────────────────────────────────────────
@@ -56,7 +56,6 @@ def candle_slot(ts: datetime) -> datetime:
     return ts.replace(minute=m, second=0, microsecond=0)
 
 def compute_signal():
-    """Returns (buy_signal: bool, sma: float|None) on the last completed candle."""
     if len(candles) < BB_WINDOW + 1:
         return False, None
     df = pd.DataFrame(candles[-(BB_WINDOW + 5):])
@@ -126,7 +125,7 @@ def on_quote(instrument, quote):
     t    = now.time()
     slot = candle_slot(now)
 
-    # Force close all positions at 14:45
+    # Force close all positions at 14:30
     if t >= FORCE_CLOSE:
         if position and position["entry_price"] and not position["sell_id"]:
             place_sell(px, "time_close")
@@ -136,7 +135,6 @@ def on_quote(instrument, quote):
     if current_candle is None:
         current_candle = {"datetime": slot, "open": px, "high": px, "low": px, "close": px}
     elif slot > current_candle["datetime"]:
-        # Candle just closed
         candles.append(current_candle)
         current_candle = {"datetime": slot, "open": px, "high": px, "low": px, "close": px}
 
@@ -167,19 +165,21 @@ def on_quote(instrument, quote):
 
 async def main():
     fix.connect()
-    if not _fix_ready.wait(timeout=600):
+    if not _fix_ready.wait(timeout=60):
         log("FIX login timed out — check credentials")
         os._exit(1)
 
-    redis = RedisMarketDataClient(
-        host="52.76.242.46",
-        port=6380,
-        password="Vn9ZMBF5SLafGkqEWc4h3b",
+    kafka = KafkaMarketDataClient(
+        bootstrap_servers=os.getenv("PAPERBROKER_KAFKA_BOOTSTRAP_SERVERS", "52.77.119.94:9092"),
+        username=os.getenv("PAPERBROKER_KAFKA_USERNAME", "username"),
+        password=os.getenv("PAPERBROKER_KAFKA_PASSWORD", "password"),
+        env_id=os.getenv("PAPERBROKER_ENV_ID", "real"),
         merge_updates=True,
     )
 
-    log(f"Subscribing to {REDIS_SYMBOL} ...")
-    await redis.subscribe(REDIS_SYMBOL, on_quote)
+    log(f"Subscribing to {KAFKA_SYMBOL} via Kafka ...")
+    await kafka.subscribe(KAFKA_SYMBOL, on_quote)
+    await kafka.start()
     log("Live — Ctrl+C to stop")
 
     try:
@@ -195,7 +195,7 @@ async def main():
         log("Stopped")
     finally:
         fix.disconnect()
-        os._exit(0)  # avoid QuickFIX segfault on exit
+        os._exit(0)
 
 if __name__ == "__main__":
     asyncio.run(main())
