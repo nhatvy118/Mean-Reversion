@@ -1,0 +1,163 @@
+[2026-04-24 02:21:59] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:21:59.389|56=SERVER|1=D1|553=Group07|10=160|
+[2026-04-24 02:21:59] [INFO] Session created: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:21:59] [DEBUG] FIXSessionManager initialized config=/tmp/paperbroker_bjkj1pm7.cfg username=Group07
+[2026-04-24 02:21:59] [DEBUG] RestSession initialized with base_url: https://papertrade.algotrade.vn/accounting
+[2026-04-24 02:21:59] [DEBUG] Registered handler for event 'fix:logon'. Total handlers: 1
+[2026-04-24 02:21:59] [DEBUG] Registered handler for event 'fix:order:filled'. Total handlers: 2
+[2026-04-24 02:21:59] [DEBUG] Registered handler for event 'fix:order:rejected'. Total handlers: 3
+[2026-04-24 02:21:59] [INFO] Starting FIX session...
+[2026-04-24 02:21:59] [DEBUG] POST https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-24 02:21:59] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:21:59.464|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=106|
+[2026-04-24 02:22:00] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:22:00.185|56=cf030e89c06043adbcd53a5b240a8910|10=082|
+[2026-04-24 02:22:00] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:22:00] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:22:00.136|56=SERVER|1=D1|553=Group07|10=138|
+[2026-04-24 02:22:00] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:22:00] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:22:00] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:22:00.185|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=174|
+[2026-04-24 02:22:00] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:22:00.165|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=091|
+[2026-04-24 02:22:00] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:22:00] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:22:00] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:22:00] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:22:00] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:22:00] [ERROR] POST https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error:  for url: https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id status_code=401 response_text={"error":"Authentication failed. Wrong username or password."}
+[2026-04-24 02:22:00] [ERROR] event=fix_id_fetch_failed username=Group07 error=401 Client Error:  for url: https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-24 02:22:00] [WARNING] event=account_id_not_resolved_on_connect username=Group07
+[2026-04-24 02:25:37] [INFO] Session created: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:25:37] [DEBUG] FIXSessionManager initialized config=/tmp/paperbroker_95a13zmi.cfg username=Group07
+[2026-04-24 02:25:37] [DEBUG] RestSession initialized with base_url: https://papertrade.algotrade.vn/accounting
+[2026-04-24 02:25:37] [DEBUG] Registered handler for event 'fix:logon'. Total handlers: 1
+[2026-04-24 02:25:37] [DEBUG] Registered handler for event 'fix:order:filled'. Total handlers: 2
+[2026-04-24 02:25:37] [DEBUG] Registered handler for event 'fix:order:rejected'. Total handlers: 3
+[2026-04-24 02:25:37] [INFO] Starting FIX session...
+[2026-04-24 02:25:37] [DEBUG] POST https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-24 02:25:37] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:25:37.274|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=105|
+[2026-04-24 02:25:38] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:25:38.078|56=cf030e89c06043adbcd53a5b240a8910|10=097|
+[2026-04-24 02:25:38] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:25:38] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:25:38.043|56=SERVER|1=D1|553=Group07|10=149|
+[2026-04-24 02:25:38] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:25:38] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:25:38] [ERROR] POST https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error:  for url: https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id status_code=401 response_text={"error":"Authentication failed. Wrong username or password."}
+[2026-04-24 02:25:38] [ERROR] event=fix_id_fetch_failed username=Group07 error=401 Client Error:  for url: https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-24 02:25:38] [WARNING] event=account_id_not_resolved_on_connect username=Group07
+[2026-04-24 02:25:38] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:25:38.078|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=189|
+[2026-04-24 02:25:38] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:25:38.089|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=110|
+[2026-04-24 02:25:38] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:25:38] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:25:38] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:25:38] [INFO] Initialized RedisMarketDataClient: 52.76.242.46:6380 db=0, merge_updates=True
+[2026-04-24 02:25:38] [INFO] Registered callback for HNXDS:VN30F2605. Total callbacks: 1
+[2026-04-24 02:25:38] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:25:38] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:25:38] [INFO] Connected to Redis: 52.76.242.46:6380
+[2026-04-24 02:25:38] [INFO] Subscribed to 1 channels: ['HNXDS:VN30F2605']
+[2026-04-24 02:25:38] [INFO] Subscription loop started
+[2026-04-24 02:25:38] [INFO] Pub/sub loop running...
+[2026-04-24 02:26:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:26:07.326|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=101|
+[2026-04-24 02:26:07] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:26:07.887|56=cf030e89c06043adbcd53a5b240a8910|10=102|
+[2026-04-24 02:26:07] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:26:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:26:07.841|56=SERVER|1=D1|553=Group07|10=152|
+[2026-04-24 02:26:07] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:07] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:26:07] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:26:07.887|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=194|
+[2026-04-24 02:26:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:26:07.879|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=114|
+[2026-04-24 02:26:07] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:07] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:07] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:26:07] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:07] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:26:37] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:26:37.612|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=102|
+[2026-04-24 02:26:38] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:26:38.210|56=cf030e89c06043adbcd53a5b240a8910|10=086|
+[2026-04-24 02:26:38] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:26:38] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:26:38.248|56=SERVER|1=D1|553=Group07|10=157|
+[2026-04-24 02:26:38] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:38] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:26:38] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:26:38.211|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=179|
+[2026-04-24 02:26:38] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:26:38.281|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=105|
+[2026-04-24 02:26:38] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:38] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:38] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:26:38] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:26:38] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:27:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:27:07.445|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=104|
+[2026-04-24 02:27:08] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:27:08.113|56=cf030e89c06043adbcd53a5b240a8910|10=086|
+[2026-04-24 02:27:08] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:27:08] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:27:08.050|56=SERVER|1=D1|553=Group07|10=146|
+[2026-04-24 02:27:08] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:08] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:27:08] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:27:08.113|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=178|
+[2026-04-24 02:27:08] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:27:08.084|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=104|
+[2026-04-24 02:27:08] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:08] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:08] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:27:08] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:08] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:27:37] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:27:37.108|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=103|
+[2026-04-24 02:27:37] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:27:37.718|56=cf030e89c06043adbcd53a5b240a8910|10=099|
+[2026-04-24 02:27:37] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:27:37] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:27:37.653|56=SERVER|1=D1|553=Group07|10=157|
+[2026-04-24 02:27:37] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:37] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:27:37] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:27:37.718|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=191|
+[2026-04-24 02:27:37] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:27:37.687|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=115|
+[2026-04-24 02:27:37] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:37] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:37] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:27:37] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:27:37] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:28:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:28:07.064|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=102|
+[2026-04-24 02:28:07] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260424-02:28:07.653|56=cf030e89c06043adbcd53a5b240a8910|10=095|
+[2026-04-24 02:28:07] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-24 02:28:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:28:07.589|56=SERVER|1=D1|553=Group07|10=163|
+[2026-04-24 02:28:07] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:07] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:28:07] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260424-02:28:07.654|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=188|
+[2026-04-24 02:28:07] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:28:07.625|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=105|
+[2026-04-24 02:28:07] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:07] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:07] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:28:07] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:07] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-24 02:28:27] [INFO] Session created: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:27] [DEBUG] FIXSessionManager initialized config=/tmp/paperbroker_4t7gq45a.cfg username=Group07
+[2026-04-24 02:28:27] [DEBUG] RestSession initialized with base_url: https://papertrade.algotrade.vn/accounting
+[2026-04-24 02:28:27] [DEBUG] Registered handler for event 'fix:logon'. Total handlers: 1
+[2026-04-24 02:28:27] [DEBUG] Registered handler for event 'fix:order:filled'. Total handlers: 2
+[2026-04-24 02:28:27] [DEBUG] Registered handler for event 'fix:order:rejected'. Total handlers: 3
+[2026-04-24 02:28:27] [INFO] Starting FIX session...
+[2026-04-24 02:28:27] [DEBUG] POST https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-24 02:28:27] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:28:27.737|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8tO|10=142|
+[2026-04-24 02:28:28] [DEBUG] POST https://papertrade.algotrade.vn/accounting/api/fix-account-info/get-fix-id succeeded status_code=200
+[2026-04-24 02:28:28] [INFO] event=fix_id_resolved username=Group07 fixAccountID=7aed94a94297406599ec7580013d9bb8
+[2026-04-24 02:28:28] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=1|49=SERVER|52=20260424-02:28:28.641|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=186|
+[2026-04-24 02:28:28] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:28] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-24 02:28:28] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-24 02:28:28] [INFO] Initialized RedisMarketDataClient: 52.76.242.46:6380 db=0, merge_updates=True
+[2026-04-24 02:28:28] [INFO] Registered callback for HNXDS:VN30F2605. Total callbacks: 1
+[2026-04-24 02:28:28] [INFO] Connected to Redis: 52.76.242.46:6380
+[2026-04-24 02:28:28] [INFO] Subscribed to 1 channels: ['HNXDS:VN30F2605']
+[2026-04-24 02:28:28] [INFO] Subscription loop started
+[2026-04-24 02:28:28] [INFO] Pub/sub loop running...
+[2026-04-24 02:28:57] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=0|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:28:57.594|56=SERVER|1=D1|553=Group07|10=159|
+[2026-04-24 02:28:59] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=0|34=2|49=SERVER|52=20260424-02:28:59.325|56=cf030e89c06043adbcd53a5b240a8910|10=094|
+[2026-04-24 02:29:27] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=0|34=3|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:29:27.543|56=SERVER|1=D1|553=Group07|10=152|
+[2026-04-24 02:29:29] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=0|34=3|49=SERVER|52=20260424-02:29:29.325|56=cf030e89c06043adbcd53a5b240a8910|10=093|
+[2026-04-24 02:29:57] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=0|34=4|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:29:57.351|56=SERVER|1=D1|553=Group07|10=153|
+[2026-04-24 02:29:59] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=0|34=4|49=SERVER|52=20260424-02:29:59.326|56=cf030e89c06043adbcd53a5b240a8910|10=098|
+[2026-04-24 02:30:27] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=0|34=5|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:30:27.367|56=SERVER|1=D1|553=Group07|10=150|
+[2026-04-24 02:30:29] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=0|34=5|49=SERVER|52=20260424-02:30:29.325|56=cf030e89c06043adbcd53a5b240a8910|10=087|
+[2026-04-24 02:30:57] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=0|34=6|49=cf030e89c06043adbcd53a5b240a8910|52=20260424-02:30:57.031|56=SERVER|1=D1|553=Group07|10=142|
+[2026-04-24 02:30:59] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=0|34=6|49=SERVER|52=20260424-02:30:59.325|56=cf030e89c06043adbcd53a5b240a8910|10=091|

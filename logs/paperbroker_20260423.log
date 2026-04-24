@@ -1,0 +1,167 @@
+[2026-04-23 19:58:09] [INFO] Session created: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 19:58:09] [DEBUG] FIXSessionManager initialized config=/tmp/paperbroker_7w4j9m7_.cfg username=Group07
+[2026-04-23 19:58:09] [DEBUG] RestSession initialized with base_url: https://papertrade.algotrade.vn
+[2026-04-23 19:58:09] [DEBUG] Registered handler for event 'fix:logon'. Total handlers: 1
+[2026-04-23 19:58:09] [DEBUG] Registered handler for event 'fix:logon_error'. Total handlers: 2
+[2026-04-23 19:58:09] [INFO] Starting FIX session...
+[2026-04-23 19:58:09] [DEBUG] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-23 19:58:09] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-19:58:09.405|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=113|
+[2026-04-23 19:58:09] [ERROR] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id status_code=404 response_text=
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+
+[2026-04-23 19:58:09] [ERROR] event=fix_id_fetch_failed username=Group07 error=404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-23 19:58:09] [WARNING] event=account_id_not_resolved_on_connect username=Group07
+[2026-04-23 19:58:09] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260423-19:58:10.045|56=cf030e89c06043adbcd53a5b240a8910|10=094|
+[2026-04-23 19:58:09] [DEBUG] Emitting event 'fix:logon_error' to 1 handler(s)
+[2026-04-23 19:58:09] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-19:58:09.850|56=SERVER|1=D1|553=Group07|10=166|
+[2026-04-23 19:58:09] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 19:58:09] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-23 19:58:09] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260423-19:58:10.045|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=186|
+[2026-04-23 19:58:09] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-19:58:09.884|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=124|
+[2026-04-23 19:58:09] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 19:58:09] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 19:58:09] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-23 19:58:09] [DEBUG] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-23 19:58:09] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 19:58:09] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-23 19:58:10] [ERROR] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id status_code=404 response_text=
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+
+[2026-04-23 19:58:10] [ERROR] event=fix_id_fetch_failed username=Group07 error=404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-23 19:58:10] [WARNING] event=remain_cash_missing_fix_id username=Group07
+[2026-04-23 19:58:10] [INFO] Stopping FIX session...
+[2026-04-23 20:14:49] [INFO] Session created: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:14:49] [DEBUG] FIXSessionManager initialized config=/tmp/paperbroker_bqqzof6c.cfg username=Group07
+[2026-04-23 20:14:49] [DEBUG] RestSession initialized with base_url: https://papertrade.algotrade.vn
+[2026-04-23 20:14:49] [DEBUG] Registered handler for event 'fix:logon'. Total handlers: 1
+[2026-04-23 20:14:49] [DEBUG] Registered handler for event 'fix:logon_error'. Total handlers: 2
+[2026-04-23 20:14:49] [INFO] Starting FIX session...
+[2026-04-23 20:14:49] [DEBUG] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-23 20:14:49] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-20:14:49.288|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=110|
+[2026-04-23 20:14:49] [ERROR] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id status_code=404 response_text=
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+
+[2026-04-23 20:14:49] [ERROR] event=fix_id_fetch_failed username=Group07 error=404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-23 20:14:49] [WARNING] event=account_id_not_resolved_on_connect username=Group07
+[2026-04-23 20:14:49] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260423-20:14:49.954|56=cf030e89c06043adbcd53a5b240a8910|10=099|
+[2026-04-23 20:14:49] [DEBUG] Emitting event 'fix:logon_error' to 1 handler(s)
+[2026-04-23 20:14:49] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-20:14:49.841|56=SERVER|1=D1|553=Group07|10=154|
+[2026-04-23 20:14:49] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:14:49] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-23 20:14:49] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260423-20:14:49.954|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=191|
+[2026-04-23 20:14:49] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-20:14:49.873|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=110|
+[2026-04-23 20:14:49] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:14:49] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:14:49] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-23 20:14:49] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:14:49] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-23 20:14:49] [DEBUG] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-23 20:14:50] [ERROR] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id status_code=404 response_text=
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+
+[2026-04-23 20:14:50] [ERROR] event=fix_id_fetch_failed username=Group07 error=404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-23 20:14:50] [WARNING] event=remain_cash_missing_fix_id username=Group07
+[2026-04-23 20:14:50] [INFO] Stopping FIX session...
+[2026-04-23 20:37:06] [INFO] Session created: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:37:06] [DEBUG] FIXSessionManager initialized config=/tmp/paperbroker_m0se03ij.cfg username=Group07
+[2026-04-23 20:37:06] [DEBUG] RestSession initialized with base_url: https://papertrade.algotrade.vn
+[2026-04-23 20:37:06] [DEBUG] Registered handler for event 'fix:logon'. Total handlers: 1
+[2026-04-23 20:37:06] [DEBUG] Registered handler for event 'fix:order:filled'. Total handlers: 2
+[2026-04-23 20:37:06] [DEBUG] Registered handler for event 'fix:order:rejected'. Total handlers: 3
+[2026-04-23 20:37:06] [INFO] Starting FIX session...
+[2026-04-23 20:37:06] [DEBUG] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id payload_keys=['username', 'password']
+[2026-04-23 20:37:06] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-20:37:06.302|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=095|
+[2026-04-23 20:37:06] [ERROR] POST https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id HTTP error
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/paperbroker/rest/rest_session.py", line 98, in post
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/site-packages/requests/models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id status_code=404 response_text=
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+
+[2026-04-23 20:37:06] [ERROR] event=fix_id_fetch_failed username=Group07 error=404 Client Error: Not Found for url: https://papertrade.algotrade.vn/api/fix-account-info/get-fix-id endpoint=/api/fix-account-info/get-fix-id
+[2026-04-23 20:37:06] [WARNING] event=account_id_not_resolved_on_connect username=Group07
+[2026-04-23 20:37:06] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=81|35=5|34=1|49=SERVER|52=20260423-20:37:06.913|56=cf030e89c06043adbcd53a5b240a8910|10=092|
+[2026-04-23 20:37:06] [DEBUG] No handlers registered for event 'fix:logon_error'
+[2026-04-23 20:37:06] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=98|35=5|34=2|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-20:37:06.829|56=SERVER|1=D1|553=Group07|10=158|
+[2026-04-23 20:37:06] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:37:06] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-23 20:37:06] [DEBUG] [FROM ADMIN] 8=FIX.4.4|9=99|35=A|34=2|49=SERVER|52=20260423-20:37:06.913|56=cf030e89c06043adbcd53a5b240a8910|98=0|108=30|141=Y|10=184|
+[2026-04-23 20:37:06] [DEBUG] [TO ADMIN] 8=FIX.4.4|9=133|35=A|34=1|49=cf030e89c06043adbcd53a5b240a8910|52=20260423-20:37:06.862|56=SERVER|1=D1|98=0|108=30|141=Y|553=Group07|554=U13tC8z6H8t0|10=106|
+[2026-04-23 20:37:06] [INFO] Logon success: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:37:06] [INFO] Order manager session set: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:37:06] [DEBUG] Emitting event 'fix:logon' to 1 handler(s)
+[2026-04-23 20:37:06] [INFO] Logged out: FIX.4.4:cf030e89c06043adbcd53a5b240a8910->SERVER
+[2026-04-23 20:37:06] [DEBUG] No handlers registered for event 'fix:logout'
+[2026-04-23 20:37:06] [INFO] Initialized RedisMarketDataClient: 52.76.242.46:6380 db=0, merge_updates=True
+[2026-04-23 20:37:06] [INFO] Registered callback for HNXDS:VN30F2605. Total callbacks: 1
+[2026-04-23 20:37:06] [INFO] Connected to Redis: 52.76.242.46:6380
+[2026-04-23 20:37:06] [INFO] Subscribed to 1 channels: ['HNXDS:VN30F2605']
+[2026-04-23 20:37:06] [INFO] Subscription loop started
+[2026-04-23 20:37:06] [INFO] Pub/sub loop running...
+[2026-04-23 20:37:07] [INFO] Stopping FIX session...
