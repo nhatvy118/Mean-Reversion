@@ -14,7 +14,7 @@ from paperbroker.market_data import RedisMarketDataClient
 
 # ── Config ────────────────────────────────────────────────────────────────────
 REDIS_SYMBOL  = "HNXDS:VN30F2605"   # May 2026 near-month contract
-FIX_SYMBOL    = "VN30F2605"          # no exchange prefix for FIX orders
+FIX_SYMBOL    = "HNXDS:VN30F2605"          # no exchange prefix for FIX orders
 BB_WINDOW     = 20
 BB_STD        = 1.8
 TF_MINUTES    = 15
@@ -35,7 +35,7 @@ trades_done    = 0
 
 # ── FIX Client ────────────────────────────────────────────────────────────────
 fix = PaperBrokerClient(
-    default_sub_account="D1",
+    default_sub_account="main",
     username="Group07",
     password="U13tC8z6H8tO",
     rest_base_url="https://papertrade.algotrade.vn/accounting",
