@@ -165,7 +165,7 @@ def on_quote(instrument, quote):
 
 async def main():
     fix.connect()
-    if not _fix_ready.wait(timeout=60):
+    if not _fix_ready.wait(timeout=6000):
         log("FIX login timed out — check credentials")
         os._exit(1)
 
