@@ -14,7 +14,7 @@ from paperbroker.market_data import RedisMarketDataClient
 
 # ── Config (optimized for fast trades) ───────────────────────────────────────
 REDIS_SYMBOL  = "HNXDS:VN30F2605"
-FIX_SYMBOL    = "VN30F2605"
+FIX_SYMBOL    = "HNXDS:VN30F2605"
 BB_WINDOW     = 5      # only 5 candles needed → signals start in ~5 min
 BB_STD        = 1.5    # tighter bands → more crossover signals
 TF_MINUTES    = 1      # 1-min candles instead of 15-min
