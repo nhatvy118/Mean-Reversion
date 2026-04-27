@@ -14,7 +14,7 @@ REDIS_SYMBOL   = "HNXDS:VN30F2605"
 FIX_SYMBOL     = "HNXDS:VN30F2605"
 MAX_TRADES     = 30
 TRADE_INTERVAL = 30    # place a new BUY every 30 seconds
-TRADING_START  = time(9, 0)
+TRADING_START  = time(8, 45)
 FORCE_CLOSE    = time(14, 29)
 
 _fix_ready  = ThreadEvent()

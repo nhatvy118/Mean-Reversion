@@ -22,7 +22,7 @@ STOP_LOSS_PTS = 2.0
 MAX_TRADES    = 30                   # stop after 30 total trades
 TRADING_START = time(8, 45)
 ENTRY_CUTOFF  = time(14, 25)
-FORCE_CLOSE   = time(14, 30)
+FORCE_CLOSE   = time(14, 29)
 
 bb = BollingerBands(window=BB_WINDOW, num_std=BB_STD)
 _fix_ready = ThreadEvent()
