@@ -13,7 +13,7 @@ from paperbroker.market_data import RedisMarketDataClient
 REDIS_SYMBOL   = "HNXDS:VN30F2605"
 FIX_SYMBOL     = "HNXDS:VN30F2605"
 MAX_TRADES     = 30
-TRADE_INTERVAL = 300   # place a new BUY every 5 minutes
+TRADE_INTERVAL = 30    # place a new BUY every 30 seconds
 TRADING_START  = time(9, 0)
 FORCE_CLOSE    = time(14, 29)
 

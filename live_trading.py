@@ -15,13 +15,13 @@ from paperbroker.market_data import RedisMarketDataClient
 # ── Config ────────────────────────────────────────────────────────────────────
 REDIS_SYMBOL  = "HNXDS:VN30F2605"   # May 2026 near-month contract
 FIX_SYMBOL    = "HNXDS:VN30F2605"          # no exchange prefix for FIX orders
-BB_WINDOW     = 20
-BB_STD        = 1.8
-TF_MINUTES    = 15
+BB_WINDOW     = 3
+BB_STD        = 0.5
+TF_MINUTES    = 1
 STOP_LOSS_PTS = 2.0
 MAX_TRADES    = 30                   # stop after 30 total trades
-TRADING_START = time(9, 15)
-ENTRY_CUTOFF  = time(14, 0)
+TRADING_START = time(8, 45)
+ENTRY_CUTOFF  = time(14, 25)
 FORCE_CLOSE   = time(14, 30)
 
 bb = BollingerBands(window=BB_WINDOW, num_std=BB_STD)
@@ -56,33 +56,47 @@ def candle_slot(ts: datetime) -> datetime:
     return ts.replace(minute=m, second=0, microsecond=0)
 
 def compute_signal():
-    """Returns (buy_signal: bool, sma: float|None) on the last completed candle."""
+    """Returns (buy_signal, sma, debug) — debug is a dict with prev/curr close, lower_band, conditions."""
     if len(candles) < BB_WINDOW + 1:
-        return False, None
+        return False, None, {"reason": f"warmup ({len(candles)}/{BB_WINDOW + 1} candles)"}
     df = pd.DataFrame(candles[-(BB_WINDOW + 5):])
     df = bb.calculate(df)
     if df["lower_band"].isna().iloc[-1]:
-        return False, None
+        return False, None, {"reason": "lower_band is NaN"}
     prev, curr = df.iloc[-2], df.iloc[-1]
-    signal = (prev["close"] > prev["lower_band"]) and (curr["close"] <= curr["lower_band"])
-    return signal, float(df["sma"].iloc[-1])
+    cond1 = prev["close"] > prev["lower_band"]
+    cond2 = curr["close"] <= curr["lower_band"]
+    signal = bool(cond1 and cond2)
+    debug = {
+        "prev_close": float(prev["close"]),
+        "prev_lower": float(prev["lower_band"]),
+        "curr_close": float(curr["close"]),
+        "curr_lower": float(curr["lower_band"]),
+        "sma":        float(curr["sma"]),
+        "cond1_prev_above_lower":     bool(cond1),
+        "cond2_curr_at_or_below_lower": bool(cond2),
+    }
+    return signal, float(df["sma"].iloc[-1]), debug
 
-def place_buy(price: float):
+def place_buy(quote):
     global position
+    price = round(quote.ask_price_1 or quote.latest_matched_price, 1)
     cl_ord_id = fix.place_order(
         symbol=FIX_SYMBOL, side="BUY", quantity=1,
-        price=round(price, 1), order_type="LIMIT",
+        price=price, order_type="LIMIT",
     )
     position = {"buy_id": cl_ord_id, "entry_price": None, "sell_id": None}
     log(f"BUY order → {price:.1f}  (total filled so far: {trades_done})")
 
-def place_sell(price: float, reason: str):
+def place_sell(quote, reason: str):
     global position
     if position is None or position.get("sell_id"):
         return
+    bid = quote.bid_price_1 or quote.latest_matched_price
+    price = round(bid - 0.1, 1)
     cl_ord_id = fix.place_order(
         symbol=FIX_SYMBOL, side="SELL", quantity=1,
-        price=round(price, 1), order_type="LIMIT",
+        price=price, order_type="LIMIT",
     )
     position["sell_id"] = cl_ord_id
     log(f"SELL order → {price:.1f}  [{reason}]")
@@ -129,7 +143,7 @@ def on_quote(instrument, quote):
     # Force close all positions at 14:45
     if t >= FORCE_CLOSE:
         if position and position["entry_price"] and not position["sell_id"]:
-            place_sell(px, "time_close")
+            place_sell(quote, "time_close")
         return
 
     # Build 15-min candle
@@ -142,17 +156,31 @@ def on_quote(instrument, quote):
 
         # Check take-profit on candle close
         if position and position["entry_price"] and not position["sell_id"]:
-            _, sma = compute_signal()
+            _, sma, _ = compute_signal()
             if sma and px >= sma:
-                place_sell(px, "take_profit")
+                place_sell(quote, "take_profit")
 
         # Check entry signal
         elif (position is None
               and trades_done < MAX_TRADES
               and TRADING_START <= t < ENTRY_CUTOFF):
-            signal, _ = compute_signal()
-            if signal:
-                place_buy(px)
+            signal, _, dbg = compute_signal()
+            if "reason" in dbg:
+                log(f"⏳ {dbg['reason']}")
+            elif signal:
+                log(f"✅ SIGNAL  prev={dbg['prev_close']:.1f}>lower={dbg['prev_lower']:.1f}  "
+                    f"curr={dbg['curr_close']:.1f}≤lower={dbg['curr_lower']:.1f}")
+                place_buy(quote)
+            else:
+                # Explain WHY no signal
+                if not dbg["cond1_prev_above_lower"]:
+                    why = f"prev_close({dbg['prev_close']:.1f}) ≤ prev_lower({dbg['prev_lower']:.1f}) — đã dưới band từ trước"
+                elif not dbg["cond2_curr_at_or_below_lower"]:
+                    diff = dbg["curr_close"] - dbg["curr_lower"]
+                    why = f"curr_close({dbg['curr_close']:.1f}) > curr_lower({dbg['curr_lower']:.1f}) — còn cách lower {diff:+.1f}"
+                else:
+                    why = "?"
+                log(f"❌ no signal: {why}  | sma={dbg['sma']:.1f}")
     else:
         current_candle["high"]  = max(current_candle["high"], px)
         current_candle["low"]   = min(current_candle["low"],  px)
@@ -161,7 +189,7 @@ def on_quote(instrument, quote):
     # Intra-candle stop-loss check
     if position and position["entry_price"] and not position["sell_id"]:
         if px <= position["entry_price"] - STOP_LOSS_PTS:
-            place_sell(px, "stop_loss")
+            place_sell(quote, "stop_loss")
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
