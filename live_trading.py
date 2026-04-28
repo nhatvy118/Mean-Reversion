@@ -1,8 +1,13 @@
 import asyncio
 import os
 import sys
-from datetime import datetime, time
+from datetime import datetime, time, timezone, timedelta
 from threading import Event as ThreadEvent
+
+VN_TZ = timezone(timedelta(hours=7))  # Vietnam ICT, no DST
+
+def vn_now() -> datetime:
+    return datetime.now(VN_TZ).replace(tzinfo=None)
 
 import pandas as pd
 
@@ -16,7 +21,7 @@ from paperbroker.market_data import RedisMarketDataClient
 REDIS_SYMBOL  = "HNXDS:VN30F2605"   # May 2026 near-month contract
 FIX_SYMBOL    = "HNXDS:VN30F2605"          # no exchange prefix for FIX orders
 BB_WINDOW     = 3
-BB_STD        = 0.5
+BB_STD        = 0.2
 TF_MINUTES    = 1
 STOP_LOSS_PTS = 2.0
 MAX_TRADES    = 30                   # stop after 30 total trades
@@ -49,7 +54,7 @@ fix = PaperBrokerClient(
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def log(msg):
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}")
+    print(f"[{vn_now().strftime('%H:%M:%S')}] {msg}", flush=True)
 
 def candle_slot(ts: datetime) -> datetime:
     m = (ts.minute // TF_MINUTES) * TF_MINUTES
@@ -82,8 +87,8 @@ def place_buy(quote):
     global position
     price = round(quote.ask_price_1 or quote.latest_matched_price, 1)
     cl_ord_id = fix.place_order(
-        symbol=FIX_SYMBOL, side="BUY", quantity=1,
-        price=price, order_type="LIMIT",
+        full_symbol=FIX_SYMBOL, side="BUY", qty=1,
+        price=price, ord_type="LIMIT",
     )
     position = {"buy_id": cl_ord_id, "entry_price": None, "sell_id": None}
     log(f"BUY order → {price:.1f}  (total filled so far: {trades_done})")
@@ -95,8 +100,8 @@ def place_sell(quote, reason: str):
     bid = quote.bid_price_1 or quote.latest_matched_price
     price = round(bid - 0.1, 1)
     cl_ord_id = fix.place_order(
-        symbol=FIX_SYMBOL, side="SELL", quantity=1,
-        price=price, order_type="LIMIT",
+        full_symbol=FIX_SYMBOL, side="SELL", qty=1,
+        price=price, ord_type="LIMIT",
     )
     position["sell_id"] = cl_ord_id
     log(f"SELL order → {price:.1f}  [{reason}]")
@@ -136,7 +141,7 @@ def on_quote(instrument, quote):
     if not px:
         return
 
-    now  = datetime.now()
+    now  = vn_now()
     t    = now.time()
     slot = candle_slot(now)
 
@@ -151,7 +156,12 @@ def on_quote(instrument, quote):
         current_candle = {"datetime": slot, "open": px, "high": px, "low": px, "close": px}
     elif slot > current_candle["datetime"]:
         # Candle just closed
-        candles.append(current_candle)
+        closed = current_candle
+        candles.append(closed)
+        log(f"📊 candle {closed['datetime'].strftime('%H:%M')} "
+            f"O={closed['open']:.1f} H={closed['high']:.1f} "
+            f"L={closed['low']:.1f} C={closed['close']:.1f} "
+            f"(total={len(candles)})")
         current_candle = {"datetime": slot, "open": px, "high": px, "low": px, "close": px}
 
         # Check take-profit on candle close
@@ -159,6 +169,10 @@ def on_quote(instrument, quote):
             _, sma, _ = compute_signal()
             if sma and px >= sma:
                 place_sell(quote, "take_profit")
+
+        # Always show warmup progress so we know the strategy is alive
+        elif len(candles) < BB_WINDOW + 1:
+            log(f"⏳ warmup ({len(candles)}/{BB_WINDOW + 1} candles)")
 
         # Check entry signal
         elif (position is None
@@ -172,7 +186,6 @@ def on_quote(instrument, quote):
                     f"curr={dbg['curr_close']:.1f}≤lower={dbg['curr_lower']:.1f}")
                 place_buy(quote)
             else:
-                # Explain WHY no signal
                 if not dbg["cond1_prev_above_lower"]:
                     why = f"prev_close({dbg['prev_close']:.1f}) ≤ prev_lower({dbg['prev_lower']:.1f}) — đã dưới band từ trước"
                 elif not dbg["cond2_curr_at_or_below_lower"]:
@@ -216,7 +229,7 @@ async def main():
             if trades_done >= MAX_TRADES:
                 log(f"Reached {MAX_TRADES} trades. Done!")
                 break
-            if datetime.now().time() >= time(15, 10):
+            if vn_now().time() >= time(15, 10):
                 log(f"Market closed. Trades today: {trades_done}")
                 break
     except KeyboardInterrupt:

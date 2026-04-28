@@ -13,7 +13,7 @@ from paperbroker.market_data import RedisMarketDataClient
 REDIS_SYMBOL   = "HNXDS:VN30F2605"
 FIX_SYMBOL     = "HNXDS:VN30F2605"
 MAX_TRADES     = 30
-TRADE_INTERVAL = 30    # place a new BUY every 30 seconds
+TRADE_INTERVAL = 60    # place a new BUY every 1 minute
 TRADING_START  = time(8, 45)
 FORCE_CLOSE    = time(14, 29)
 
@@ -45,11 +45,12 @@ def log(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
 
 def buy_price(q):
-    return round(q.ask_price_1 or q.latest_matched_price, 1)
+    p = q.ask_price_1 or q.latest_matched_price
+    return round(p + 0.5, 1)   # 5 ticks above ask to cross even if it moves up
 
 def sell_price(q):
     p = q.bid_price_1 or q.latest_matched_price
-    return round(p - 0.1, 1)   # slightly below bid to guarantee fill
+    return round(p - 0.5, 1)   # 5 ticks below bid to cross even if it moves down
 
 def place_buy():
     global position, last_trade_ts
@@ -57,8 +58,8 @@ def place_buy():
         return
     price = buy_price(last_quote)
     cl_ord_id = fix.place_order(
-        symbol=FIX_SYMBOL, side="BUY", quantity=1,
-        price=price, order_type="LIMIT",
+        full_symbol=FIX_SYMBOL, side="BUY", qty=1,
+        price=price, ord_type="LIMIT",
     )
     position = {"buy_id": cl_ord_id, "entry_price": None, "sell_id": None}
     last_trade_ts = datetime.now().timestamp()
@@ -70,8 +71,8 @@ def place_sell(reason: str):
         return
     price = sell_price(last_quote)
     cl_ord_id = fix.place_order(
-        symbol=FIX_SYMBOL, side="SELL", quantity=1,
-        price=price, order_type="LIMIT",
+        full_symbol=FIX_SYMBOL, side="SELL", qty=1,
+        price=price, ord_type="LIMIT",
     )
     position["sell_id"] = cl_ord_id
     log(f"SELL order → {price}  [{reason}]")
@@ -138,34 +139,45 @@ async def main():
         await asyncio.sleep(0.5)
     log("Market data flowing — starting trade loop")
 
+    import traceback
     try:
         while trades_done < MAX_TRADES:
-            t = datetime.now().time()
+            try:
+                t = datetime.now().time()
 
-            if t >= FORCE_CLOSE:
-                # Force close any open position then stop
-                if position and position["entry_price"] and not position["sell_id"]:
-                    place_sell("force_close")
-                log(f"Market closing. Trades done: {trades_done}")
-                break
+                if t >= FORCE_CLOSE:
+                    if position and position["entry_price"] and not position["sell_id"]:
+                        place_sell("force_close")
+                    log(f"Market closing. Trades done: {trades_done}")
+                    break
 
-            if t < TRADING_START:
+                if t < TRADING_START:
+                    await asyncio.sleep(1)
+                    continue
+
+                now_ts = datetime.now().timestamp()
+                since_last = now_ts - last_trade_ts
+
+                if position is None and since_last >= TRADE_INTERVAL:
+                    place_buy()
+
                 await asyncio.sleep(1)
-                continue
-
-            now_ts = datetime.now().timestamp()
-            since_last = now_ts - last_trade_ts
-
-            # Fire a new BUY every TRADE_INTERVAL seconds if no open position
-            if position is None and since_last >= TRADE_INTERVAL:
-                place_buy()
-
-            await asyncio.sleep(1)
+            except Exception as e:
+                log(f"⚠️  loop error: {e!r}")
+                log(traceback.format_exc())
+                await asyncio.sleep(5)
 
     except KeyboardInterrupt:
         log("Stopped")
+    except Exception as e:
+        log(f"💥 fatal: {e!r}")
+        log(traceback.format_exc())
     finally:
-        fix.disconnect()
+        log("Disconnecting…")
+        try:
+            fix.disconnect()
+        except Exception as e:
+            log(f"disconnect error: {e!r}")
         os._exit(0)
 
 if __name__ == "__main__":
